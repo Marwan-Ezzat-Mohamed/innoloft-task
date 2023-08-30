@@ -6,7 +6,7 @@ export default function VideoSection({ link }: VideoSectionProps) {
   const embeddedLink = link.replace("watch?v=", "embed/");
 
   return (
-    <div className="flex flex-col gap-5 rounded-md border border-snow-white bg-white px-2.5 md:p-5">
+    <div className="flex flex-col gap-5 rounded-md border border-ghost-white bg-white px-2.5 md:p-5">
       <p className="font-semibold text-gunmetal-gray">Video</p>
 
       <iframe

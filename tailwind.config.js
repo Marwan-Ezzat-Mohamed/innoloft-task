@@ -19,7 +19,7 @@ module.exports = {
       colors: {
         "midnight-blue": "#272E71",
         "gunmetal-gray": "#374151",
-        "snow-white": "#FBFAF9",
+        "snow-white": "#F9FAFB",
         "slate-gray": "#6B7280",
         "cadet-gray": "#9CA3AF",
         "ghost-white": "#E5E7EB",

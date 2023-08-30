@@ -1,5 +1,4 @@
 import RibbonIcon from "@/icons/Ribbon";
-
 import LocationIcon from "@/icons/Location";
 import { InnoloftLogo } from "@/config";
 import Image from "next/image";

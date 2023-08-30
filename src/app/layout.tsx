@@ -1,10 +1,10 @@
+import ReduxProvider from "@/components/Redux/Provider";
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { Provider } from "react-redux";
-import { store } from "@/store";
+import { Open_Sans } from "next/font/google";
+import { Layout } from "@/components/Layout";
 
-const inter = Inter({ subsets: ["latin"] });
+const open_sans = Open_Sans({ subsets: ["greek"] });
 
 export const metadata: Metadata = {
   title: "Innoloft",
@@ -18,10 +18,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Provider store={store}>
-          <main>{children}</main>
-        </Provider>
+      <body className={open_sans.className}>
+        <ReduxProvider>
+          <main className="flex flex-col grow bg-snow-white">
+            <Layout>{children}</Layout>
+          </main>
+        </ReduxProvider>
       </body>
     </html>
   );

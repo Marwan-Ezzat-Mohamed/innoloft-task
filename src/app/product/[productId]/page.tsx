@@ -9,11 +9,16 @@ import { ProductDetails } from "@/components/ProductDetails";
 import { OfferDetails } from "@/components/OfferDetails";
 import { VideoSection } from "@/components/VideoSection";
 import { flattenObject } from "@/utils";
+import { usePathname } from "next/navigation";
 
 export default function ProductView() {
+  const params = usePathname();
   const dispatch = useAppDispatch();
   const product = useAppSelector((state) => state.productState.product);
   const { theme } = useAppSelector((state) => state.themeState);
+
+  // let's display the object returned by useRouter in the inspection console
+  const productId = params.split("/")[2];
 
   const sanitizedProductDescription = useMemo(() => {
     if (!product?.description) return "";
@@ -27,7 +32,7 @@ export default function ProductView() {
   }, [product]);
 
   useEffect(() => {
-    dispatch(fetchProduct());
+    dispatch(fetchProduct(productId));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -39,7 +44,7 @@ export default function ProductView() {
         <Breadcrumb
           items={[{ label: "Offers", href: "" }, { label: product.name }]}
         />
-        <Button href="/product/edit">Edit</Button>
+        <Button href={`/product/${productId}/edit`}>Edit</Button>
       </div>
 
       <ProductDetails

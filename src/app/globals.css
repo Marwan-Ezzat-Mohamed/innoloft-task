@@ -21,4 +21,6 @@ body {
   height: 100dvh;
   display: flex;
   flex-direction: column;
+  /* open sans font */
+  font-family: "Open Sans", sans-serif;
 }

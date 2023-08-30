@@ -28,8 +28,10 @@ import MultiValueField from "@/components/common/MultiValueField";
 import { flattenObject } from "@/utils";
 import { ProductSchema } from "@/schemas";
 import { CompanyDetails } from "@/components/CompanyDetails";
+import { usePathname } from "next/navigation";
 
 export default function ProductEdit() {
+  const params = usePathname();
   const dispatch = useAppDispatch();
   const product = useAppSelector((state) => state.productState.product!);
   const isProductLoading = useAppSelector(
@@ -39,6 +41,7 @@ export default function ProductEdit() {
   const hasUserSection = useAppSelector(
     (state) => state.themeState.theme.hasUserSection
   );
+  const productId = params.split("/")[2];
 
   type ProductValidationSchema = zod.infer<typeof ProductSchema>;
 
@@ -46,7 +49,6 @@ export default function ProductEdit() {
     register,
     handleSubmit,
     reset,
-    setFocus,
     control,
     formState: { errors },
     watch,
@@ -71,7 +73,7 @@ export default function ProductEdit() {
 
   useEffect(() => {
     dispatch(fetchTrls());
-    dispatch(fetchProduct());
+    dispatch(fetchProduct(productId));
   }, []);
 
   useEffect(() => {
@@ -116,7 +118,7 @@ export default function ProductEdit() {
             Offer Title
           </label>
 
-          <Button href="/product">View Offer</Button>
+          <Button href={`/product/${productId}`}>View Offer</Button>
         </div>
 
         <div className="flex rounded-md border border-ghost-white bg-white max-lg:flex-col">

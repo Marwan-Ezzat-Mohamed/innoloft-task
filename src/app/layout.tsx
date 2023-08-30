@@ -1,10 +1,8 @@
 import ReduxProvider from "@/components/Redux/Provider";
 import "./globals.css";
 import type { Metadata } from "next";
-import { Open_Sans } from "next/font/google";
-import { Layout } from "@/components/Layout";
 
-const open_sans = Open_Sans({ subsets: ["greek"] });
+import { Layout } from "@/components/Layout";
 
 export const metadata: Metadata = {
   title: "Innoloft",
@@ -18,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={open_sans.className}>
+      <body>
         <ReduxProvider>
           <main className="flex flex-col grow bg-snow-white">
             <Layout>{children}</Layout>

@@ -13,7 +13,7 @@ export default function Header() {
   //   const product = useAppSelector(state => state.productState.product)
   //   const
   return (
-    <nav className="flex w-full items-center justify-start bg-primary p-2 md:justify-around">
+    <nav className="flex w-full items-center justify-start bg-primary p-2 md:justify-around ">
       <div className="flex h-full">
         <div
           className="flex h-full"
@@ -42,7 +42,7 @@ export default function Header() {
             name="searchbox"
             id="searchbox"
             placeholder="Enter interests, keyword, company name, etc."
-            className="w-full rounded p-2 pr-10 text-black"
+            className="w-full rounded p-2 pr-10 text-black h-[27px] placeholder:text-gunmetal-gray"
           />
 
           <div className="absolute right-3.5 top-1/2 mr-2 h-4 w-4  -translate-y-1/2 transform">

@@ -27,7 +27,7 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
           {item.href ? (
             <a
               href={item.href}
-              className="text-slate-gray cursor-pointer text-sm"
+              className="text-slate-gray cursor-pointer text-sm "
             >
               {item.label}
             </a>

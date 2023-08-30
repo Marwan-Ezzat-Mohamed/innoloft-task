@@ -17,8 +17,8 @@ const initialState: ProductState = {
 
 export const fetchProduct = createAsyncThunk(
   "fetchProduct",
-  async () => {
-    const response = await fetch(`${API_BASE_URL}/product/6781/`);
+  async (productId: string) => {
+    const response = await fetch(`${API_BASE_URL}/product/${productId}/`);
 
     if (!response.ok) {
       throw new Error("Failed to fetch product");
@@ -37,7 +37,7 @@ export const fetchProduct = createAsyncThunk(
 export const updateProduct = createAsyncThunk(
   "updateProduct",
   async (productData: Product) => {
-    const response = await fetch(`${API_BASE_URL}/product/6781/`, {
+    const response = await fetch(`${API_BASE_URL}/product/${productData.id}/`, {
       method: "PUT",
       body: JSON.stringify(productData),
     });

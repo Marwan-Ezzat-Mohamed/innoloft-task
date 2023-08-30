@@ -22,10 +22,16 @@ export default function Header() {
             maxHeight: "40px",
             filter:
               "invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%)",
-            objectFit: "contain",
           }}
         >
-          <Image src={InnoloftLogo} alt="Innoloft" fill={true} />
+          <Image
+            src={InnoloftLogo}
+            alt="Innoloft"
+            fill={true}
+            style={{
+              objectFit: "contain",
+            }}
+          />
         </div>
       </div>
 
@@ -53,7 +59,7 @@ export default function Header() {
             height={40}
             src={"/profile_image.svg"}
             alt="profile image"
-            className="mx-w-full w-10 rounded-full"
+            className="rounded-full"
           />
           <ArrowIcon />
         </div>

@@ -15,7 +15,6 @@ import RibbonIcon from "@/icons/Ribbon";
 import ClockIcon from "@/icons/Clock";
 import SettingIcon from "@/icons/Setting";
 import CheckIcon from "@/icons/Check";
-import TrashIcon from "@/icons/Trash";
 
 import { fetchProduct, updateProduct } from "@/store/slices/product";
 import { fetchTrls } from "@/store/slices/trl";
@@ -28,6 +27,7 @@ import { SelectDropDown } from "@/components/common/SelectDropDown";
 import { ProductSchema } from "@/schemas";
 import { CompanyDetails } from "@/components/CompanyDetails";
 import { Dialog } from "@/components/common/Dialog";
+import { ProductDetails } from "@/components/ProductDetails";
 
 export default function ProductEdit() {
   const router = useRouter();
@@ -41,7 +41,7 @@ export default function ProductEdit() {
   const hasUserSection = useAppSelector(
     (state) => state.themeState.theme.hasUserSection
   );
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+
   const productId = params.split("/")[2];
 
   type ProductValidationSchema = zod.infer<typeof ProductSchema>;
@@ -106,50 +106,17 @@ export default function ProductEdit() {
           <Button href={`/product/${productId}`}>View Offer</Button>
         </div>
 
-        <div className="flex rounded-md border border-ghost-white bg-white max-lg:flex-col">
-          <div
-            className={`relative flex w-full flex-col rounded-bl-md rounded-tl-md 
-             max-lg:w-full`}
-          >
-            <div className="absolute start-0 top-0 flex h-10 items-center gap-2.5 rounded-br-md rounded-tl-md bg-white">
-              <div className="flex h-full w-10 items-center justify-center rounded-br-md rounded-tl-md bg-primary text-white">
-                <RibbonIcon />
-              </div>
-
-              <div className="text-base font-semibold text-gunmetal-gray">
-                Patent
-              </div>
-            </div>
-            <div className="absolute end-0 top-0 flex h-10 cursor-pointer items-center gap-2.5 rounded-bl-md rounded-tl-md border-ghost-white bg-white">
-              <div className="md:border-r-1 flex h-full w-10 items-center justify-center rounded-bl-md border border-r-0 border-t-0  text-red-600   ">
-                <TrashIcon
-                  onClick={() => {
-                    setDeleteDialogOpen(true);
-                  }}
-                />
-                <Dialog
-                  isOpen={deleteDialogOpen}
-                  onOpenChange={(open) => {
-                    setDeleteDialogOpen(open);
-                  }}
-                  title="Delete product"
-                  description="Are you sure you want to delete this product?"
-                  cancelText="Cancel"
-                  confirmText="Delete"
-                  onConfirm={() => {
-                    // dispatch(deleteProduct(productId));
-                    router.push("/");
-                  }}
-                />
-              </div>
-            </div>
-
-            <img
-              src={product?.picture}
-              alt="Product 1"
-              className="max-h-[300px] w-full rounded-tl-md max-md:h-[180px]"
-            />
-
+        <ProductDetails
+          hasUserSection={hasUserSection}
+          productName={product.name}
+          productDescription={product.description}
+          productPicture={product.picture}
+          companyName={product.company.name}
+          companyAddress={companyAddress}
+          userName={`${product.user.firstName} ${product.user.lastName}`}
+          userProfilePicture={product.user.profilePicture}
+          editMode
+          editComponent={
             <div className="flex flex-col gap-2.5 p-5 max-md:px-2.5">
               <Input
                 {...register("name", { required: true })}
@@ -190,27 +157,18 @@ export default function ProductEdit() {
                 </Button>
               </div>
             </div>
-          </div>
-
-          {hasUserSection && (
-            <CompanyDetails
-              companyName={product?.company.name}
-              companyAddress={companyAddress}
-              userName={`${product?.user.firstName} ${product?.user.lastName}}`}
-              userProfilePicture={product?.user.profilePicture}
-            />
-          )}
-        </div>
+          }
+        />
 
         <div className="flex flex-col gap-5 rounded-md border border-ghost-white bg-white p-5 max-md:px-2.5">
           <p className="text-base font-semibold text-gunmetal-gray">Video</p>
-
           <div className="w-full">
             <Input
               placeholder="Add a youtube or vimeo link"
               {...register("video")}
             />
           </div>
+          ProductDetails
         </div>
 
         <div className="flex flex-col gap-5 rounded-md border border-ghost-white bg-white p-5 max-md:px-2.5">

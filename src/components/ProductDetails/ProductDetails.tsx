@@ -1,8 +1,8 @@
+import { useRouter } from "next/navigation";
 import RibbonIcon from "@/icons/Ribbon";
-import LocationIcon from "@/icons/Location";
-import { InnoloftLogo } from "@/config";
-import Image from "next/image";
-import CompanyDetails from "../CompanyDetails/CompanyDetails";
+import ProductContent from "./ProductContent";
+import ProductDeleteButton from "./ProductDeleteButton";
+import { CompanyDetails } from "../CompanyDetails";
 
 interface PropsProductDetails {
   hasUserSection: boolean;
@@ -13,6 +13,9 @@ interface PropsProductDetails {
   companyAddress: string;
   userName: string;
   userProfilePicture: string;
+
+  editMode?: boolean;
+  editComponent?: React.ReactNode;
 }
 export default function ProductDetails({
   hasUserSection,
@@ -23,7 +26,10 @@ export default function ProductDetails({
   companyAddress,
   userName,
   userProfilePicture,
+  editMode = false,
+  editComponent,
 }: PropsProductDetails) {
+  const router = useRouter();
   return (
     <div className="flex rounded-md border border-ghost-white bg-white max-lg:flex-col">
       <div className="relative flex flex-col rounded-bl-md rounded-tl-md">
@@ -32,8 +38,18 @@ export default function ProductDetails({
             <RibbonIcon />
           </div>
 
-          <div className="mr-2.5 font-semibold  text-gunmetal-gray">Patent</div>
+          <div className="mr-2.5 text-base font-semibold text-gunmetal-gray">
+            Patent
+          </div>
         </div>
+
+        {editMode && (
+          <ProductDeleteButton
+            onDelete={() => {
+              router.push("/");
+            }}
+          />
+        )}
 
         <img
           src={productPicture}
@@ -41,13 +57,11 @@ export default function ProductDetails({
           className="max-h-[300px] w-full rounded-tl-md object-cover max-md:h-[180px] "
         />
 
-        <div className="p-5 max-md:px-2.5">
-          <p className="font-semibold text-gunmetal-gray">{productName}</p>
-          <div
-            className="mt-2.5 text-sm text-slate-gray"
-            dangerouslySetInnerHTML={{ __html: productDescription }}
-          />
-        </div>
+        {editMode ? (
+          editComponent
+        ) : (
+          <ProductContent name={productName} description={productDescription} />
+        )}
       </div>
 
       {hasUserSection && (

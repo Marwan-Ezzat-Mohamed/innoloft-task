@@ -1,5 +1,5 @@
 import Input from "@/components/common/Input";
-import { InnoloftLogo } from "@/config";
+
 import ArrowIcon from "@/icons/Arrow";
 import BellIcon from "@/icons/Bell";
 import MessengerIcon from "@/icons/Messenger";
@@ -8,10 +8,14 @@ import SearchIcon from "@/icons/Search";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-export default function Header() {
+interface HeaderProps {
+  logo: string;
+}
+
+export default function Header({ logo }: HeaderProps) {
   const router = useRouter();
   return (
-    <nav className="flex w-full items-center justify-start bg-primary p-2 md:justify-around h-14">
+    <nav className="mx-auto flex w-full items-center justify-start bg-primary p-2 md:justify-around h-14">
       <div className="flex h-full">
         <div
           className="flex h-full"
@@ -26,7 +30,7 @@ export default function Header() {
           }}
         >
           <Image
-            src={InnoloftLogo}
+            src={logo}
             alt="Innoloft"
             fill={true}
             style={{
@@ -43,7 +47,7 @@ export default function Header() {
             name="searchbox"
             id="searchbox"
             placeholder="Enter interests, keyword, company name, etc."
-            className="w-full rounded p-2 pr-10 text-black h-[27px] placeholder:text-gunmetal-gray"
+            className="w-full rounded p-2 pr-10 text-black h-[27px] placeholder:text-gunmetal-gray py-1.5 placeholder:text-sm"
           />
 
           <div className="absolute right-3.5 top-1/2 mr-2 h-4 w-4  -translate-y-1/2 transform">

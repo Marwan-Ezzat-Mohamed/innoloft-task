@@ -23,7 +23,7 @@ export default function ProductView() {
     const address = product?.company.address;
     if (!address) return "";
     return Object.values(flattenObject(address)).join(", ");
-  }, [product]);
+  }, [product?.company.address]);
 
   useEffect(() => {
     dispatch(fetchProduct(productId));

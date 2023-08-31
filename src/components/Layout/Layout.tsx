@@ -24,13 +24,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <Header />
+      <Header logo={theme.logo} />
       <Next13ProgressBar height="4px" color="#0A2FFF" showOnShallow />
-      <div className="flex flex-grow bg-secondary px-2.5">
+      <div className="flex flex-grow bg-snow-white px-2.5">
         <div className="container mx-auto py-5 xl:px-0 px-4">
           <div className="flex gap-8 h-full ">
             <SideNavbar />
-            {children}
+            <div className="max-w-[1130px]">{children}</div>
           </div>
         </div>
       </div>

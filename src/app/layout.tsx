@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
+import { Open_Sans } from "next/font/google";
 
 import ReduxProvider from "@/components/Redux/Provider";
 import { Layout } from "@/components/Layout";
 import "./globals.css";
+
+//👇 Configure our font object
+const openSans = Open_Sans({
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Innoloft",
@@ -15,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={openSans.className}>
       <body>
         <ReduxProvider>
           <main className="flex flex-col grow bg-snow-white">

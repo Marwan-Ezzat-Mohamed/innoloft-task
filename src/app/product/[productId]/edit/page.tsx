@@ -170,7 +170,7 @@ export default function ProductEdit() {
                       value={value}
                       onValueChange={(data) => onChange(data)}
                       errorMessage={error?.message}
-                      forwardRef={register("description").ref}
+                      ref={register("description").ref}
                     />
                   );
                 }}

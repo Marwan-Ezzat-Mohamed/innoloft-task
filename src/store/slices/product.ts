@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
+import DOMPurify from "dompurify";
 import { Product } from "@/Types/product";
 import { API_BASE_URL } from "@/config";
 
@@ -50,6 +50,12 @@ export const updateProduct = createAsyncThunk(
   }
 );
 
+const getSanitizedProduct = (product: Product) => {
+  return {
+    ...product,
+    description: DOMPurify.sanitize(product.description),
+  };
+};
 export const productSlice = createSlice({
   name: "product",
   initialState,
@@ -62,7 +68,7 @@ export const productSlice = createSlice({
       })
       .addCase(fetchProduct.fulfilled, (state, action) => {
         state.loading = false;
-        state.product = action.payload;
+        state.product = getSanitizedProduct(action.payload);
       })
       .addCase(fetchProduct.rejected, (state, action) => {
         state.loading = false;
@@ -75,7 +81,7 @@ export const productSlice = createSlice({
       })
       .addCase(updateProduct.fulfilled, (state, action) => {
         state.loading = false;
-        state.product = action.payload;
+        state.product = getSanitizedProduct(action.payload);
       })
       .addCase(updateProduct.rejected, (state, action) => {
         state.loading = false;

@@ -179,7 +179,7 @@ export default function ProductEdit() {
               <div className="mt-1.5 flex justify-end gap-2.5">
                 <Button
                   variant="secondary"
-                  type="reset"
+                  type="button"
                   onClick={resetProductForm}
                 >
                   Cancel
@@ -285,7 +285,7 @@ export default function ProductEdit() {
             <div className="mt-1.5 flex justify-end gap-2.5">
               <Button
                 variant="secondary"
-                type="reset"
+                type="button"
                 onClick={resetProductForm}
               >
                 Cancel

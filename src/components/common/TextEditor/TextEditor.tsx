@@ -39,4 +39,6 @@ const TextEditor = forwardRef<ReactQuillProps, TextEditorProps>(
   }
 );
 
+TextEditor.displayName = "TextEditor";
+
 export default TextEditor;

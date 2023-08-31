@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useMemo } from "react";
-import DOMPurify from "dompurify";
+import { usePathname } from "next/navigation";
+
 import { fetchProduct } from "@/store/slices/product";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { Breadcrumb } from "@/components/common/Breadcrumb";
@@ -9,7 +10,6 @@ import { ProductDetails } from "@/components/ProductDetails";
 import { OfferDetails } from "@/components/OfferDetails";
 import { VideoSection } from "@/components/VideoSection";
 import { flattenObject } from "@/utils";
-import { usePathname } from "next/navigation";
 
 export default function ProductView() {
   const params = usePathname();
@@ -17,13 +17,7 @@ export default function ProductView() {
   const product = useAppSelector((state) => state.productState.product);
   const { theme } = useAppSelector((state) => state.themeState);
 
-  // let's display the object returned by useRouter in the inspection console
   const productId = params.split("/")[2];
-
-  const sanitizedProductDescription = useMemo(() => {
-    if (!product?.description) return "";
-    return DOMPurify.sanitize(product.description);
-  }, [product?.description]);
 
   const companyAddress = useMemo(() => {
     const address = product?.company.address;
@@ -50,7 +44,7 @@ export default function ProductView() {
       <ProductDetails
         hasUserSection={theme.hasUserSection}
         productName={product.name}
-        productDescription={sanitizedProductDescription}
+        productDescription={product.description}
         productPicture={product.picture}
         companyName={product.company.name}
         companyAddress={companyAddress}

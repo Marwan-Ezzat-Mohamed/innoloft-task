@@ -1,9 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import { z as zod } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+
+import { Product } from "@/Types/product";
 
 import { Button } from "@/components/common/Button";
 import { TextEditor } from "@/components/common/TextEditor";
@@ -13,24 +16,21 @@ import ClockIcon from "@/icons/Clock";
 import SettingIcon from "@/icons/Setting";
 import CheckIcon from "@/icons/Check";
 import TrashIcon from "@/icons/Trash";
-import { InnoloftLogo } from "@/config";
-import LocationIcon from "@/icons/Location";
 
 import { fetchProduct, updateProduct } from "@/store/slices/product";
 import { fetchTrls } from "@/store/slices/trl";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
-import { Product } from "@/Types/product";
-import { SelectDropDown } from "@/components/common/SelectDropDown";
-
+import { flattenObject } from "@/utils";
 import Input from "@/components/common/Input";
 import MultiValueField from "@/components/common/MultiValueField";
-import { flattenObject } from "@/utils";
+import { SelectDropDown } from "@/components/common/SelectDropDown";
 import { ProductSchema } from "@/schemas";
 import { CompanyDetails } from "@/components/CompanyDetails";
-import { usePathname } from "next/navigation";
+import { Dialog } from "@/components/common/Dialog";
 
 export default function ProductEdit() {
+  const router = useRouter();
   const params = usePathname();
   const dispatch = useAppDispatch();
   const product = useAppSelector((state) => state.productState.product!);
@@ -41,6 +41,7 @@ export default function ProductEdit() {
   const hasUserSection = useAppSelector(
     (state) => state.themeState.theme.hasUserSection
   );
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const productId = params.split("/")[2];
 
   type ProductValidationSchema = zod.infer<typeof ProductSchema>;
@@ -80,21 +81,6 @@ export default function ProductEdit() {
     resetProductForm();
   }, [product]);
 
-  const renderActionButtons = useMemo(
-    () => (
-      <div className="mt-1.5 flex justify-end gap-2.5">
-        <Button variant="secondary" onClick={resetProductForm}>
-          Cancel
-        </Button>
-        <Button type="submit" className="gap-1.5">
-          <CheckIcon />
-          Save
-        </Button>
-      </div>
-    ),
-    [resetProductForm]
-  );
-
   const companyAddress = useMemo(() => {
     const address = product?.company.address;
     if (!address) return "";
@@ -106,7 +92,6 @@ export default function ProductEdit() {
   return (
     <form
       onSubmit={(e) => {
-        console.log("here");
         e.preventDefault();
         handleSubmit(handleUpdateProduct)(e);
       }}
@@ -131,13 +116,31 @@ export default function ProductEdit() {
                 <RibbonIcon />
               </div>
 
-              <div className="mr-2.5 text-base font-semibold text-gunmetal-gray">
+              <div className="text-base font-semibold text-gunmetal-gray">
                 Patent
               </div>
             </div>
             <div className="absolute end-0 top-0 flex h-10 cursor-pointer items-center gap-2.5 rounded-bl-md rounded-tl-md border-ghost-white bg-white">
               <div className="md:border-r-1 flex h-full w-10 items-center justify-center rounded-bl-md border border-r-0 border-t-0  text-red-600   ">
-                <TrashIcon />
+                <TrashIcon
+                  onClick={() => {
+                    setDeleteDialogOpen(true);
+                  }}
+                />
+                <Dialog
+                  isOpen={deleteDialogOpen}
+                  onOpenChange={(open) => {
+                    setDeleteDialogOpen(open);
+                  }}
+                  title="Delete product"
+                  description="Are you sure you want to delete this product?"
+                  cancelText="Cancel"
+                  confirmText="Delete"
+                  onConfirm={() => {
+                    // dispatch(deleteProduct(productId));
+                    router.push("/");
+                  }}
+                />
               </div>
             </div>
 
@@ -173,7 +176,19 @@ export default function ProductEdit() {
                 }}
               />
 
-              {renderActionButtons}
+              <div className="mt-1.5 flex justify-end gap-2.5">
+                <Button
+                  variant="secondary"
+                  type="reset"
+                  onClick={resetProductForm}
+                >
+                  Cancel
+                </Button>
+                <Button type="submit" className="gap-1.5">
+                  <CheckIcon />
+                  Save
+                </Button>
+              </div>
             </div>
           </div>
 
@@ -267,7 +282,18 @@ export default function ProductEdit() {
             </div>
           </div>
           <div className="grid grid-cols-1 gap-x-10 gap-y-10">
-            {renderActionButtons}
+            <div className="mt-1.5 flex justify-end gap-2.5">
+              <Button
+                variant="secondary"
+                type="reset"
+                onClick={resetProductForm}
+              >
+                Cancel
+              </Button>
+              <Button type="submit" className="gap-1.5">
+                Save changes
+              </Button>
+            </div>
           </div>
         </div>
       </div>

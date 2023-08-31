@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import ReduxProvider from "@/components/Redux/Provider";
 import { Layout } from "@/components/Layout";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Innoloft",

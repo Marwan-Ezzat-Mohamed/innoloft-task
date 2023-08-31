@@ -1,5 +1,3 @@
-"use client";
-
 import Input from "@/components/common/Input";
 import { InnoloftLogo } from "@/config";
 import ArrowIcon from "@/icons/Arrow";
@@ -8,12 +6,12 @@ import MessengerIcon from "@/icons/Messenger";
 import SearchIcon from "@/icons/Search";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
-  //   const product = useAppSelector(state => state.productState.product)
-  //   const
+  const router = useRouter();
   return (
-    <nav className="flex w-full items-center justify-start bg-primary p-2 md:justify-around ">
+    <nav className="flex w-full items-center justify-start bg-primary p-2 md:justify-around h-14">
       <div className="flex h-full">
         <div
           className="flex h-full"
@@ -22,6 +20,9 @@ export default function Header() {
             maxHeight: "40px",
             filter:
               "invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%)",
+          }}
+          onClick={() => {
+            router.push("/");
           }}
         >
           <Image

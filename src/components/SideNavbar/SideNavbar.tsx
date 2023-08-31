@@ -5,17 +5,25 @@ import GroupIcon from "@/icons/Group";
 import OrganizationIcon from "@/icons/Organization";
 import ArrowIcon from "@/icons/Arrow";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface MenuItemProps {
   startIcon: React.ReactNode;
   label: string;
   endIcon?: React.ReactNode;
+  href?: string;
 }
 
-export function MenuItem({ startIcon, label, endIcon }: MenuItemProps) {
+export function MenuItem({ startIcon, label, endIcon, href }: MenuItemProps) {
+  const router = useRouter();
   return (
     <div className="hover:bg-light-gray flex cursor-pointer items-center justify-between gap-3 rounded-xl p-2.5 transition-all duration-200 hover:opacity-80">
-      <div className="text-gunmetal-gray flex items-center gap-3 ">
+      <div
+        className="text-gunmetal-gray flex items-center gap-3 "
+        onClick={() => {
+          href && router.push(href);
+        }}
+      >
         {startIcon}
 
         <p>{label}</p>
@@ -27,7 +35,7 @@ export function MenuItem({ startIcon, label, endIcon }: MenuItemProps) {
 }
 
 const menuItems = [
-  { icon: <HomeIcon />, label: "Home" },
+  { icon: <HomeIcon />, label: "Home", href: "/" },
   { icon: <GroupIcon />, label: "Members" },
   {
     icon: <OrganizationIcon />,
@@ -60,6 +68,7 @@ export default function SideNavbar() {
             startIcon={item.icon}
             label={item.label}
             endIcon={item.endIcon}
+            href={item.href}
           />
         ))}
       </div>

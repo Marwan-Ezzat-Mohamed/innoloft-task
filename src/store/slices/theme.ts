@@ -21,6 +21,7 @@ const initialState: ThemeState = {
 };
 
 export const fetchTheme = createAsyncThunk("fetchTheme", async () => {
+  console.log({ APP_ID });
   const response = await fetch(`${API_BASE_URL}/configuration/${APP_ID}/`);
 
   if (!response.ok) {

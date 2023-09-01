@@ -30,7 +30,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className="container mx-auto py-5 xl:px-0 px-4">
           <div className="flex gap-8 h-full ">
             <SideNavbar />
-            <div className="max-w-[1130px]">{children}</div>
+            <div className="max-w-[1130px] w-full">{children}</div>
           </div>
         </div>
       </div>

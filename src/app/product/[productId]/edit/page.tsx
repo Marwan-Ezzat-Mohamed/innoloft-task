@@ -60,6 +60,7 @@ export default function ProductEdit() {
       video: product?.video ?? "",
       description: product?.description ?? "",
       businessModels: product?.businessModels ?? [],
+      trl: product?.trl ?? { id: 0, name: "" },
     },
     resolver: zodResolver(ProductSchema),
   });

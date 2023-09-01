@@ -67,3 +67,19 @@ const schema = z.object({
 ### Preference for Zustand
 
 While Redux was used for state management, it's worth mentioning that if I was given the choice, I would have chosen `Zustand` over `Redux` as `Zustand` requires fewer setup steps, provides a more concise codebase, and is known for its simplicity and ease of use while providing almost the same functionality as Redux.
+
+### What I would have done differently if I had more time
+
+- **Refactor the codebase**: I would have refactored the codebase to make it more readable and maintainable.
+- **Extract reusable components**: I would have extracted some components and make them reusable to reduce code duplication.
+- **Add tests**: I would have added unit and integration tests to the codebase to ensure that the application works as expected.
+- **Add Loading and Error States**: I would have added loading and error states to the application to prevent a specific bug when the APP_ID is set to 2 and the defaualt values are loaded till the API request is completed, so the user sees the default values for a split second before the API request is completed.
+- **Add a 404 Page**: I would have added a 404 page to the application to handle invalid routes.
+- **Add axios**: I would have added axios to the application to handle API requests to make the codebase more readable and maintainable.
+
+### How to run the application
+
+- Clone the repository
+- Run `npm install` to install the dependencies
+- Run `npm run dev` to start the development server
+- access the application on `http://localhost:3000`

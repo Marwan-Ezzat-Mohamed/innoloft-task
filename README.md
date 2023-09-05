@@ -13,9 +13,9 @@ In this documentation, I will walk you through the process of completing the Inn
 
 ## Mobile View
 
-![Home Page](./screenshots/desktop1.jpeg)
-![Product View Page](./screenshots/desktop1.jpeg)
-![Product Edit Page](./screenshots/desktop1.jpeg)
+![Home Page](./screenshots/mobile1.jpeg)
+![Product View Page](./screenshots/mobile2.jpeg)
+![Product Edit Page](./screenshots/mobile3.jpeg)
 
 ### Tech Stack
 

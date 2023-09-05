@@ -40,7 +40,7 @@ export default function Header({ logo }: HeaderProps) {
         </div>
       </div>
 
-      <div className="mx-0 hidden w-2/3 items-center md:flex md:justify-between">
+      <div className="max-w-[1130px] mx-0 hidden w-2/3 items-center md:flex md:justify-between">
         <div className="relative me-2 max-w-lg flex-grow">
           <Input
             type="text"
